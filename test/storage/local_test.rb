@@ -10,9 +10,10 @@ describe Vines::Storage::Local do
 
   def setup
     Dir.mkdir(DIR) unless File.exists?(DIR)
-    %w[user vcard fragment delayed_message].each do |d|
+    %w[user vcard fragment delayed_message foo].each do |d|
       Dir.mkdir(File.join(DIR, d))
     end
+    Dir.mkdir("#{DIR}/foo/bar/")
 
     files = {
       :empty      => "#{DIR}/user/empty@wonderland.lit",
@@ -55,5 +56,8 @@ describe Vines::Storage::Local do
     assert_raises(RuntimeError) { Vines::Storage::Local.new { dir 'bogus' } }
     assert_raises(RuntimeError) { Vines::Storage::Local.new { dir '/sbin' } }
     Vines::Storage::Local.new { dir DIR } # shouldn't raise an error
+    Vines::Storage::Local.new { dir "#{DIR}/user/" } # one level is ok
+    Vines::Storage::Local.new { dir "#{DIR}/foo/bar/" } # so are two
+    assert_raises(RuntimeError) { Vines::Storage::Local.new { dir "#{DIR}/foo/bar/baz/" } }
   end
 end

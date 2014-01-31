@@ -114,12 +114,16 @@ module Vines
       # Returns the fully-qualified file path String.
       #
       # Raises RuntimeError if the resolved path is outside of the storage
-      # directory. This prevents directory path traversals with maliciously
+      # directory. Allows maximum two levels for nested directories.
+      # This prevents directory path traversals with maliciously
       # crafted JIDs.
       def absolute_path(file)
         File.expand_path(file, @dir).tap do |absolute|
           parent = File.dirname(File.dirname(absolute))
-          raise 'path traversal' unless parent == @dir
+          if parent != @dir
+            parents_parent = File.dirname(parent)
+            raise 'path traversal' unless parents_parent == @dir
+          end
         end
       end
 
