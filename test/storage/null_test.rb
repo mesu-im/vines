@@ -35,7 +35,7 @@ describe Vines::Storage::Null do
 
   def test_fetch_delayed_messages_return_empty
     assert_equal @storage.fetch_delayed_messages(@user.jid), []
-    @storage.delay_message(@user.jid, @message)
+    @storage.delay_message(@message)
     assert_equal @storage.fetch_delayed_messages(@user.jid), []
   end
 end

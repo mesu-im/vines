@@ -35,7 +35,7 @@ module Vines
         # do nothing
       end
 
-      def delay_message(jid, message)
+      def delay_message(message)
         # do nothing
       end
 

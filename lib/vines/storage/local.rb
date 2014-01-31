@@ -77,9 +77,8 @@ module Vines
         save(file, node.to_xml)
       end
 
-      def delay_message(jid, message)
-        jid = JID.new(jid).bare.to_s
-        return if jid.empty?
+      def delay_message(message)
+        jid = JID.new(message['to']).bare.to_s
         # Add delay element http://xmpp.org/extensions/xep-0203.html#schema
         doc = Nokogiri::XML::Document.new
         delay = doc.create_element('delay',

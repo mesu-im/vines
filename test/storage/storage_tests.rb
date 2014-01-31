@@ -191,7 +191,7 @@ module StorageTests
     EMLoop.new do
       db = storage
       db.save_user(Vines::User.new(:jid => 'offline_user@domain.tld'))
-      db.delay_message('offline_user@domain.tld/resource', MESSAGE)
+      db.delay_message(MESSAGE)
       messages = db.fetch_delayed_messages('offline_user@domain.tld')
       refute_nil messages
       assert_equal messages.count, 1
