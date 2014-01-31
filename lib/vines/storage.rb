@@ -187,15 +187,13 @@ module Vines
     end
 
     # Save the message for delayed delivery to the database and return when the save
-    # is complete. JID may be a +String+ or a +Vines::JID+ object.  It may be a bare
-    # JID or a full JID. Implementations of this method must convert the JID to a bare
-    # JID before saving the message. Card is a +Nokogiri::XML::Node+ object.
+    # is complete. Message is a +Nokogiri::XML::Node+ object containing to attribute.
     # Returns message with appended delay element
     #
-    # message = Nokogiri::XML('<message>...</message>').root
-    # saved = storage.save_message('alice@wonderland.lit', message)
+    # message = Nokogiri::XML('<message to="alice@wonderland.lit">...</message>').root
+    # saved = storage.save_message(message)
     # puts saved
-    def delay_message(jid, message)
+    def delay_message(message)
       raise 'subclass must implement'
     end
 
