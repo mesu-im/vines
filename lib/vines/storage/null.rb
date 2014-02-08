@@ -42,6 +42,10 @@ module Vines
       def fetch_delayed_messages(jid)
         []
       end
+
+      def archive_message(from, domain, message)
+        # do nothing
+      end
     end
   end
 end

@@ -29,7 +29,8 @@ module Vines
     :bosh             => 'urn:xmpp:xbosh'.freeze,
     :vcard            => 'vcard-temp'.freeze,
     :si               => 'http://jabber.org/protocol/si'.freeze,
-    :byte_streams     => 'http://jabber.org/protocol/bytestreams'.freeze
+    :byte_streams     => 'http://jabber.org/protocol/bytestreams'.freeze,
+    :mam              => 'urn:xmpp:mam:tmp'.freeze
   }.freeze
 
   module Log

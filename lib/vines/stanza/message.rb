@@ -21,6 +21,20 @@ module Vines
 
         if local?
           to = validate_to || stream.user.jid.bare
+
+          # XEP-0313: Message Archive Management aka MAM
+          unless self.css('body').inner_text == ''
+            from = stream.user.jid
+            if user = storage(to.domain).find_user(to)
+              storage(to.domain).archive_message(from, to.domain, self)
+            end
+            unless from.domain == to.domain
+              if user = storage(from.domain).find_user(from)
+                storage(from.domain).archive_message(from, from.domain, self)
+              end
+            end
+          end
+
           recipients = stream.connected_resources(to)
           if recipients.empty?
             if user = storage(to.domain).find_user(to)

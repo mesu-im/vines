@@ -188,7 +188,7 @@ module Vines
 
     # Save the message for delayed delivery to the database and return when the save
     # is complete. Message is a +Nokogiri::XML::Node+ object containing to attribute.
-    # Returns message with appended delay element
+    # Returns message with appended 'delay' element
     #
     # message = Nokogiri::XML('<message to="alice@wonderland.lit">...</message>').root
     # saved = storage.save_message(message)
@@ -205,6 +205,20 @@ module Vines
     # messages = storage.fetch_delayed_messages('alice@wonderland.lit')
     # puts messages
     def fetch_delayed_messages(jid)
+      raise 'subclass must implement'
+    end
+
+    # Archives message for MAM (XEP-0313).
+    # JID may be a +String+ or a +Vines::JID+ object.  It may be a bare JID or a
+    # full JID. Implementations of this method must convert the JID to a bare
+    # JID before saving the fragment. Fragment is a +Nokogiri::XML::Node+ object.
+    # Domain is a string containing domain which current storage belongs to.
+    # Message is a +Nokogiri::XML::Node+ object containing 'to' attribute.
+    # Appends 'archived' element, with information where the message was stored.
+    #
+    # message = Nokogiri::XML('<message to="alice@wonderland.lit">...</message>').root
+    # storage.archive_message('hatter@wonderland.lit', 'wonderland.lit', message)
+    def archive_message(from, domain, message)
       raise 'subclass must implement'
     end
 

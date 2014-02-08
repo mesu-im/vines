@@ -202,4 +202,15 @@ module StorageTests
       assert_equal messages, []
     end
   end
+
+  def test_archive_message
+    EMLoop.new do
+      db = storage
+      db.save_user(Vines::User.new(:jid => 'offline_user@domain.tld'))
+      message = MESSAGE.clone
+      db.archive_message('full@wonderland.lit/resource', 'domain.tld', message)
+
+      # TODO: Test if message was archived
+    end
+  end
 end

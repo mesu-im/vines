@@ -15,7 +15,7 @@ module Vines
           raise 'Must provide a writable storage directory'
         end
 
-        %w[user vcard fragment delayed_message].each do |sub|
+        %w[user vcard fragment delayed_message archive].each do |sub|
           sub = File.expand_path(sub, @dir)
           Dir.mkdir(sub, 0700) unless File.exists?(sub)
         end
@@ -101,6 +101,36 @@ module Vines
           File.delete(file)
         end
         messages
+      end
+
+      def archive_message(from, domain, message)
+        from_jid = JID.new(from).bare.to_s
+        return if from_jid.empty?
+
+        return if domain.empty?
+
+        to_jid = JID.new(message['to']).bare.to_s
+        # TODO: Implement UID
+        archived_id = Time.now.strftime('%Y-%m-%dT%H-%M-%SZ')
+        doc = Nokogiri::XML::Document.new
+        archived = doc.create_element('archived',
+                                   'by'  => domain,
+                                   'id' => archived_id)
+        # TODO: Remove any existing 'archived' elements
+        message.add_child(archived)
+
+        if JID.new(to_jid).domain == domain
+          path = absolute_path('archive/%s' % to_jid)
+          Dir.mkdir(path, 0700) unless File.exists?(path)
+          save('%s/%s-%s' % [path, from_jid, archived_id], message.to_xml)
+        end
+
+        if JID.new(from_jid).domain == domain
+          # This is a local user, save this message in its archive
+          path = absolute_path('archive/%s' % from_jid)
+          Dir.mkdir(path, 0700) unless File.exists?(path)
+          save('%s/%s-%s' % [path, to_jid, archived_id], message.to_xml)
+        end
       end
 
       private

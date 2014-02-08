@@ -38,6 +38,7 @@ describe Vines::Stanza::Iq::DiscoInfo do
             <feature var="urn:xmpp:ping"/>
             <feature var="vcard-temp"/>
             <feature var="jabber:iq:version"/>
+            <feature var="urn:xmpp:mam:tmp"/>
           </query>
         </iq>
       })
@@ -62,6 +63,7 @@ describe Vines::Stanza::Iq::DiscoInfo do
             <feature var="urn:xmpp:ping"/>
             <feature var="vcard-temp"/>
             <feature var="jabber:iq:version"/>
+            <feature var="urn:xmpp:mam:tmp"/>
             <feature var="jabber:iq:private"/>
           </query>
         </iq>
