@@ -111,7 +111,7 @@ module Vines
 
         to_jid = JID.new(message['to']).bare.to_s
         # TODO: Implement UID
-        archived_id = Time.now.strftime('%Y-%m-%dT%H-%M-%SZ')
+        archived_id = UUID.new.generate
         doc = Nokogiri::XML::Document.new
         archived = doc.create_element('archived',
                                    'by'  => domain,
