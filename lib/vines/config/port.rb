@@ -18,7 +18,7 @@ module Vines
         instance_eval(&block) if block
         defaults = {:host => host, :port => port,
           :max_resources_per_account => 5, :max_stanza_size => 128 * 1024}
-        @settings = defaults.merge(@settings)
+        @settings = defaults.merge!(@settings)
       end
 
       def max_stanza_size(max=nil)
@@ -78,7 +78,7 @@ module Vines
         @stream = Vines::Stream::Http
         super(config, host, port, &block)
         defaults = {:root => File.expand_path('web'), :bind => '/xmpp'}
-        @settings = defaults.merge(@settings)
+        @settings = defaults.merge!(@settings)
       end
 
       def max_resources_per_account(max=nil)

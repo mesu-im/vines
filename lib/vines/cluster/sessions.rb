@@ -19,10 +19,10 @@ module Vines
       # for that user will be returned. If a full JID is used, the session for
       # that single connected stream is returned.
       def find(*jids)
-        jids.flatten.map do |jid|
+        jids.flatten.flat_map do |jid|
           jid = JID.new(jid)
           jid.bare? ? user_sessions(jid) : user_session(jid)
-        end.compact.flatten
+        end.compact
       end
 
       # Persist the user's session to the shared redis cache so that other cluster
@@ -30,7 +30,7 @@ module Vines
       # to them.
       def save(jid, attrs)
         jid = JID.new(jid)
-        session = {node: @cluster.id}.merge(attrs)
+        session = {node: @cluster.id}.merge!(attrs)
         redis.multi
         redis.hset("sessions:#{jid.bare}", jid.resource, session.to_json)
         redis.sadd("cluster:nodes:#{@cluster.id}", jid.to_s)
