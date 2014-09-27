@@ -5,7 +5,7 @@ module Vines
     class Message < Stanza
       register "/message"
 
-      TYPE, FROM  = %w[type from].map {|s| s.freeze }
+      TYPE, FROM  = %w[type from].map(&:freeze)
       VALID_TYPES = %w[chat error groupchat headline normal].freeze
 
       VALID_TYPES.each do |type|

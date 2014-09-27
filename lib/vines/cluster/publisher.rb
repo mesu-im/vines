@@ -9,7 +9,7 @@ module Vines
     class Publisher
       include Vines::Log
 
-      ALL, STANZA, USER = %w[cluster:nodes:all stanza user].map {|s| s.freeze }
+      ALL, STANZA, USER = %w[cluster:nodes:all stanza user].map(&:freeze)
 
       def initialize(cluster)
         @cluster = cluster

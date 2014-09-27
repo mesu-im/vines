@@ -38,7 +38,7 @@ module Vines
     end
 
     def host(*names, &block)
-      names = names.flatten.map {|name| name.downcase }
+      names = names.flatten.map(&:downcase)
       dupes = names.uniq.size != names.size || (@vhosts.keys & names).any?
       raise "one host definition per domain allowed" if dupes
       names.each do |name|

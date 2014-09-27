@@ -10,7 +10,7 @@ module Vines
       include Vines::Log
 
       ALL, FROM, HEARTBEAT, OFFLINE, ONLINE, STANZA, TIME, TO, TYPE, USER =
-        %w[cluster:nodes:all from heartbeat offline online stanza time to type user].map {|s| s.freeze }
+        %w[cluster:nodes:all from heartbeat offline online stanza time to type user].map(&:freeze)
 
       def initialize(cluster)
         @cluster = cluster

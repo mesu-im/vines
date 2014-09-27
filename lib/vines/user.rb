@@ -30,7 +30,7 @@ module Vines
     def update_from(user)
       @name = user.name
       @password = user.password
-      @roster = user.roster.map {|c| c.clone }
+      @roster = user.roster.map(&:clone)
     end
 
     # Return true if the jid is on this user's roster.

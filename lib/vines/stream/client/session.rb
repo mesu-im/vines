@@ -121,14 +121,14 @@ module Vines
         # Returns streams for available resources to which this user
         # has successfully subscribed.
         def available_subscribed_to_resources
-          subscribed = @user.subscribed_to_contacts.map {|c| c.jid }
+          subscribed = @user.subscribed_to_contacts.map(&:jid)
           router.available_resources(subscribed, @user.jid)
         end
 
         # Returns streams for available resources that are subscribed
         # to this user's presence updates.
         def available_subscribers
-          subscribed = @user.subscribed_from_contacts.map {|c| c.jid }
+          subscribed = @user.subscribed_from_contacts.map(&:jid)
           router.available_resources(subscribed, @user.jid)
         end
 

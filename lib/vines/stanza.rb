@@ -7,7 +7,7 @@ module Vines
     attr_reader :stream
 
     EMPTY = ''.freeze
-    FROM, MESSAGE, TO = %w[from message to].map {|s| s.freeze }
+    FROM, MESSAGE, TO = %w[from message to].map(&:freeze)
     ROUTABLE_STANZAS  = %w[message iq presence].freeze
 
     @@types = {}

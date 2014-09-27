@@ -4,7 +4,7 @@ module Vines
   class Stream
     class Http
       class Ready < Client::Ready
-        RID, SID, TYPE, TERMINATE = %w[rid sid type terminate].map {|s| s.freeze }
+        RID, SID, TYPE, TERMINATE = %w[rid sid type terminate].map(&:freeze)
 
         def node(node)
           unless stream.valid_session?(node[SID]) && body?(node) && node[RID]
