@@ -16,6 +16,8 @@ sample web application is available in the
 
 Additional documentation can be found at [getvines.org](http://www.getvines.org/).
 
+[![Build Status](https://travis-ci.org/mesu-im/vines.svg?branch=master)](https://travis-ci.org/mesu-im/vines)
+
 ## Usage
 
 ```
